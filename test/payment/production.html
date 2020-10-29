@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    <script src="https://cdn.bootpay.co.kr/js/bootpay-3.2.6.min.js" type="application/javascript"></script>-->
+    <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+    <script src="./production.js" type="application/javascript"></script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <meta name="bootpay-application-id" content="59a7a368396fa64fc5d4a7db"/>
+    <link rel="stylesheet" media="all" href="../stylesheet/style.css"/>
+</head>
+<body>
+<div class="pg-select-container">
+    <div class="pg-select-box">
+        <h2 class="title">결제 요청 하기</h2>
+        <div class="group">
+            <label>PG 회사 선택</label>
+            <select class="bootpay-select" name="pg">
+                <option value="kcp">KCP</option>
+                <option value="danal">다날</option>
+                <option value="lgup">LGU+</option>
+                <option value="inicis">이니시스</option>
+                <option value="kakao">카카오페이</option>
+                <option value="payapp">페이앱</option>
+                <option value="nicepay">나이스페이</option>
+                <option value="payletter">페이레터</option>
+                <option value="welcome">웰컴페이먼츠</option>
+                <option value="settlebank">세틀뱅크</option>
+                <option value="onestore">원스토어</option>
+            </select>
+        </div>
+        <div class="group">
+            <label>결제수단선택</label>
+            <select class="bootpay-select" name="method" onchange="changeMethod(this);">
+                <option value="card">카드결제</option>
+                <option value="digital_card">카드결제 (디지털)</option>
+                <option value="phone">휴대폰소액결제</option>
+                <option value="vbank">가상계좌</option>
+                <option value="bank">계좌이체</option>
+                <option value="card_rebill">카드정기결제</option>
+                <option value="digital_card_rebill">카드정기결제 (디지털 창)</option>
+                <option value="easy">간편결제</option>
+                <option value="easy_rebill">간편정기결제</option>
+                <option value="order">주문결제</option>
+                <option value="bootpay">부트페이 간편결제</option>
+                <option value="kakao">카카오 간편결제(나이스)</option>
+                <option value="payco">페이코 간편결제(나이스)</option>
+                <option value="npay">네이버페이(결제형)</option>
+                <option value="auth">본인인증</option>
+                <option value="easy_card">부트페이 카드 간편결제</option>
+            </select>
+        </div>
+        <div class="group">
+            <label>금액설정</label>
+            <input class="input-block" value="3000" name="price"/>
+        </div>
+        <div class="group">
+            <label>면세금액</label>
+            <input class="input-block" value="0" name="tax_free"/>
+        </div>
+        <div class="group">
+            <label>유저 토큰</label>
+            <input class="input-block" value="" name="user_token"/>
+        </div>
+        <div class="group text-center">
+            <button class="button" onclick="doPayment()">
+                결제시작
+            </button>
+            <button class="button" onclick="doAsyncPayment()">
+                팝업결제시작
+            </button>
+            <button class="button" onclick="doAllPayment()">
+                통합창시작
+            </button>
+            <button class="button" onclick="doAsyncAllPayment()">
+                팝업통합창시작
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

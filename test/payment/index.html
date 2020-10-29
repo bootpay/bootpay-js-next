@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../bootpay-latest.js" type="application/javascript"></script>
+    <script src="./payment.js" type="application/javascript"></script>
+    <!--    <meta name="apple-mobile-web-app-capable" content="yes"/>-->
+    <!--    <meta name="apple-mobile-web-app-status-bar-style" content="none"/>-->
+    <!--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>-->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+    <meta name="bootpay-application-id" content="59a568d3e13f3336c21bf707"/>
+    <link rel="stylesheet" media="all" href="../stylesheet/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="pg-select-container">
+    <div class="pg-select-box">
+        <h2 class="title">결제 요청 하기</h2>
+        <div class="group">
+            <label>PG 회사 선택</label>
+            <select class="bootpay-select" name="pg">
+                <option value="kcp">KCP</option>
+                <option value="danal">다날</option>
+                <option value="lgup">LGU+</option>
+                <option value="inicis">이니시스</option>
+                <option value="nicepay">나이스페이</option>
+                <option value="payapp">페이앱</option>
+                <option value="welcome">웰컴페이먼츠</option>
+                <option value="npay">네이버페이</option>
+                <option value="kakao">카카오페이</option>
+                <option value="tpay">TPAY</option>
+                <option value="payletter">페이레터</option>
+                <option value="easypay">KICC</option>
+                <option value="payco">페이코</option>
+                <option value="onestore">원스토어</option>
+                <option value="settlebank">세틀뱅크</option>
+                <option value="toss">토스페이먼츠</option>
+            </select>
+        </div>
+        <div class="group">
+            <label>결제수단선택</label>
+            <select class="bootpay-select" name="method" onchange="changeMethod(this);">
+                <option value="card">카드결제</option>
+                <option value="phone">휴대폰소액결제</option>
+                <option value="vbank">가상계좌</option>
+                <option value="bank">계좌이체</option>
+                <option value="card_rebill">카드정기결제(창결제)</option>
+                <option value="easy">간편결제</option>
+                <option value="easy_rebill">간편정기결제</option>
+                <option value="order">주문결제</option>
+                <option value="bootpay">부트페이 간편결제</option>
+                <option value="kakao">카카오 간편결제(나이스)</option>
+                <option value="payco">페이코 간편결제(나이스)</option>
+                <option value="npay">네이버페이(결제형)</option>
+                <option value="auth">본인인증</option>
+                <option value="easy_card">부트페이 카드 간편결제</option>
+                <option value="digital_card">카드결제 ( 디지털 )</option>
+                <option value="digital_card_rebill">정기결제 ( 디지털 창결제)</option>
+            </select>
+        </div>
+        <div class="group">
+            <label>금액설정</label>
+            <input class="input-block" value="3000" name="price" id="price"/>
+        </div>
+        <div class="group">
+            <label>면세금액</label>
+            <input class="input-block" value="0" name="tax_free"/>
+        </div>
+        <div class="group">
+            <label>유저 토큰</label>
+            <input class="input-block" value="" name="user_token"/>
+        </div>
+        <div class="group text-center">
+            <button class="button" onclick="doModal()">
+                모달창
+            </button>
+            <button class="button" onclick="doPayment()">
+                결제시작
+            </button>
+            <button class="button" onclick="doAsyncPayment()">
+                비동기결제시작
+            </button>
+            <button class="button" onclick="doAllPayment()">
+                통합창시작
+            </button>
+            <button class="button" onclick="doAsyncAllPayment()">
+                비동기통합창시작
+            </button>
+        </div>
+        <div class="group text-center">
+            <button class="button" onclick="doUserVerification()">
+                비밀번호 인증 SDK
+            </button>
+            <button class="button" onclick="doRegisterCard()">
+                카드 등록 SDK
+            </button>
+            <button class="button" onclick="doChangePassword()">
+                비밀번호 변경 SDK
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="doAsyncPayment()">결제창 띄우기</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
